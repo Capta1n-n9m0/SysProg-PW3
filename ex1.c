@@ -24,15 +24,18 @@ int main(int argc, char **argv){
     char possible_args[] = "i:o:hv";
     int verbosity = 0, c, i_flag = 0, o_flag = 0;
     string input = {0}, output = {0};
+    string_array inputs = create_empty_string_array(), outputs = create_empty_string_array();
     while ( (c = getopt(argc, argv, possible_args)) != -1){
         switch (c) {
             case 'i':
-                i_flag = 1;
+                i_flag++;
                 input = create_string(optarg);
+                append_string_to_string_array(&inputs, input);
                 break;
             case 'o':
-                o_flag = 1;
+                o_flag++;
                 output = create_string(optarg);
+                append_string_to_string_array(&outputs, output);
                 break;
             case 'h':
                 puts("Here i print help.");
@@ -56,21 +59,35 @@ int main(int argc, char **argv){
                 }
                 break;
             default:
+                puts("exiting");
                 abort();
         }
     }
-    if(i_flag == 0){
+    if(i_flag == 0 && o_flag == 0){
         input = create_string("foo");
+        output = create_string("bar");
+        append_string_to_string_array(&inputs, input);
+        append_string_to_string_array(&outputs, output);
     }
-    if(o_flag == 0){
-        if(i_flag == 1){
-            output = create_string(input.chars);
+    if(o_flag > i_flag){
+        printf("[ WARNING ] There are more output files(%d), than input files(%d). ", o_flag, i_flag);
+        printf("Leftover output will be omitted.\n");
+    }
+    if(i_flag > o_flag){
+        printf("[   INFO  ] There are more input files(%d) that output files(%d). ", i_flag, o_flag);
+        printf("All unspecified outputs will be completed to $file.copy\n");
+        for(int i = o_flag; i < i_flag; i++){
+            output = create_string(inputs.strings[i].chars);
             append_cstring_to_string(&output, ".copy");
-        }
-        else{
-            output = create_string("bar");
+            append_string_to_string_array(&outputs, output);
         }
     }
+    for(int i = 0; i < i_flag; i++){
+        if(create_copy(inputs.strings[i], outputs.strings[i], verbosity) != 0){
+            fprintf(stderr, "Failed to copy %s to %s\n", inputs.strings[i].chars, outputs.strings[i].chars);
+        }
+    }
+    return 0;
     return create_copy(input, output, verbosity);
 }
 

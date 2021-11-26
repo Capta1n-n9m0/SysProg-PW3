@@ -35,3 +35,6 @@ string_array read_string_array(FILE *stream);
 void print_string_array(string_array s);
 
 void free_string_array(string_array *s);
+void append_string_to_string_array(string_array *array, string s);
+string_array create_empty_string_array();
+

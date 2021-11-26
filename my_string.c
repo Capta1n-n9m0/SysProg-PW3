@@ -1,6 +1,7 @@
 #include "my_string.h"
 string create_string(char *s){
-    string res;
+    string res={0};
+    if(s == NULL) return res;
     uint32_t len = ((strlen(s) / 8) + 1) * BASE_STRING_LEN;
     res.len = strlen(s);
     res.cap = len;
@@ -96,4 +97,24 @@ void free_string_array(string_array *s){
     }
     free(s->strings);
     s->len = 0;
+}
+
+void append_string_to_string_array(string_array *array, string s){
+    array->strings[array->len++] = s;
+    array->strings = (string *) realloc(array->strings, (array->len+1) * sizeof (string));
+    if(array->strings == NULL){
+        fprintf(stderr, "Realloc failed. Check available memory.\n");
+        exit(1);
+    }
+}
+
+string_array create_empty_string_array(){
+    string_array res = {0};
+    res.strings = (string *) calloc(1, sizeof (string));
+    if(res.strings == NULL){
+        fprintf(stdin, "Could allocate memory for one string\n");
+        exit(1);
+    }
+    res.len = 0;
+    return res;
 }

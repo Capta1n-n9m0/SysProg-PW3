@@ -1,5 +1,5 @@
 EX1 	 	=ex1
-EX1_ARGS 	=
+EX1_ARGS 	=-i foo -o copy_foo -i ex1.o -v
 EX2 	 	=ex2
 EX2_ARGS 	=
 EX3 	 	=ex3
