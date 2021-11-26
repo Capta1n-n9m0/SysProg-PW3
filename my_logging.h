@@ -9,3 +9,5 @@
 
 /* TODO: Create logging module for easier, multilevel logging
  * */
+
+int _____placeholder() __attribute__((constructor));
