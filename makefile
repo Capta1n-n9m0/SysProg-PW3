@@ -7,10 +7,10 @@ EX3_ARGS 	=
 CC		 	=gcc
 CFLAGS		=-Wall -Werror --pedantic -std=c11
 LDFLAGS		=
-SOURCES_EX1		=ex1.c 
+SOURCES_EX1		=ex1.c my_string.c
 SOURCES_EX2		=$(wildcard *.c)
 SOURCES_EX3		=$(wildcard *.c)
-HEADERS_EX1		=$(wildcard *.h)
+HEADERS_EX1		=my_string.h
 HEADERS_EX2		=$(wildcard *.h)
 HEADERS_EX3		=$(wildcard *.h)
 OBJECTS_EX1		=$(SOURCES_EX1:.c=.o)
@@ -60,7 +60,7 @@ $(EX3): $(OBJECTS_EX3)
 
 main.o: main.c
 	$(CC) $(CFLAGS) -c -o main.o main.c
-ex1.o: ex1.c
+ex1.o: $(SOURCES_EX1) $(HEADERS_EX1)
 	$(CC) $(CFLAGS) -c -o ex1.o ex1.c
 
 area.o: area.h area.c pi.h
