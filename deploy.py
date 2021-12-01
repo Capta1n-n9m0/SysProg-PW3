@@ -1,7 +1,7 @@
 import subprocess as sp
 import sys
 
-REPO = "https://github.com/Capta1n-n9m0/SysProg-PW3"
+REPO = "https://github.com/Capta1n-n9m0/SysProg-PW3.git"
 
 
 def main(argv):

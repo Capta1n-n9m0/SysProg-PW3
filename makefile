@@ -14,7 +14,7 @@ SOURCES_EX3		=ex3.c
 HEADERS_EX1		=my_string.h
 HEADERS_EX2		=
 HEADERS_EX3		=
-OBJECTS_EX1		=$(SOURCES_EX1:.c=.o)
+OBJECTS_EX1 		=$(SOURCES_EX1:.c=.o)
 OBJECTS_EX2		=$(SOURCES_EX2:.c=.o)
 OBJECTS_EX3		=$(SOURCES_EX3:.c=.o)
 SOURCES 		=$(wildcard *.c)

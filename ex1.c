@@ -59,6 +59,8 @@ int main(int argc, char **argv){
                 }
                 break;
             default:
+                free_string_array(&inputs);
+                free_string_array(&outputs);
                 puts("exiting");
                 abort();
         }
