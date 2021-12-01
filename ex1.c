@@ -18,9 +18,6 @@ void interpret_errno();
 int create_copy(string in, string out, int verbosity);
 
 int main(int argc, char **argv){
-    puts("Running Ex1.");
-    puts("Here i will copy one file into another.");
-    puts("If no arguments provided input is assumed to be foo and output bar");
     char possible_args[] = "i:o:hv";
     int verbosity = 0, c, i_flag = 0, o_flag = 0;
     string input = {0}, output = {0};
@@ -65,11 +62,15 @@ int main(int argc, char **argv){
                 abort();
         }
     }
-    if(i_flag == 0 && o_flag == 0){
-        input = create_string("foo");
-        output = create_string("bar");
-        append_string_to_string_array(&inputs, input);
-        append_string_to_string_array(&outputs, output);
+    if(verbosity > 0){
+        puts("Running Ex1.");
+    }
+    if(verbosity > 1){
+        puts("Here i will copy one file into another.");
+        puts("If no arguments provided input is assumed to be foo and output bar");
+    }
+    if(verbosity > 0){
+        printf("%d inputs files and %d output files.\n", i_flag, o_flag);
     }
     if(o_flag > i_flag){
         printf("[ WARNING ] There are more output files(%d), than input files(%d). ", o_flag, i_flag);
@@ -83,6 +84,17 @@ int main(int argc, char **argv){
             append_cstring_to_string(&output, ".copy");
             append_string_to_string_array(&outputs, output);
         }
+    }
+    if(i_flag == 0 && o_flag == 0){
+        if(verbosity > 1){
+            puts("No input or output files. Assuming input as foo and output as bar");
+        }
+        input = create_string("foo");
+        i_flag++;
+        output = create_string("bar");
+        o_flag++;
+        append_string_to_string_array(&inputs, input);
+        append_string_to_string_array(&outputs, output);
     }
     for(int i = 0; i < i_flag; i++){
         if(create_copy(inputs.strings[i], outputs.strings[i], verbosity) != 0){
