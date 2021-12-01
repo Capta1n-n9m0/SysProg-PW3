@@ -6,7 +6,8 @@ EX2_ARGS 	=
 EX3 	 	=ex3
 EX3_ARGS 	=
 CC		 	=gcc
-CFLAGS		=-Wall -Werror --pedantic -std=c11
+#CFLAGS		=-Wall -Werror --pedantic -std=c11
+CFLAGS		=-Wall --pedantic -std=c11
 LDFLAGS		=
 SOURCES_EX1		=ex1.c my_string.c
 SOURCES_EX2		=ex2.c
